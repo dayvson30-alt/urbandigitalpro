@@ -83,7 +83,7 @@ body.ph{padding:0}
     : `<main><div class="tag">${esc(p.label)}</div><h1>${esc(p.headline)}</h1>${middle(p)}</main>${foot(p)}`}</body></html>`;
 }
 
-const caption = (p, i) => `${p.pt}\n\n${CTA}\n\n${TAGS[i % TAGS.length]}`;
+const caption = (p, i) => `${p.pt}\n\n${p.cta || CTA}\n\n${TAGS[i % TAGS.length]}`;
 
 const slugs = new Set();
 for (const p of posts) {

@@ -36,6 +36,17 @@ const posts = [
     tr: 'Surgiu um imprevisto. Quinta às 10h funcionaria pra você?',
     pt: `Teve um imprevisto e precisa trocar o dia da limpeza?\n\nNão precisa explicar demais. Avisa com antecedência e já oferece outro horário. O cliente americano valoriza quem resolve.\n\n🇺🇸 Something came up. Would Thursday at 10 am work for you instead?\n🇧🇷 Surgiu um imprevisto. Quinta às 10h funcionaria pra você?` },
 
+  { slug: 'lead-dor', pillar: 'biz', type: 'card',
+    label: 'SUA EMPRESA', headline: 'Qual problema está', accent: 'travando sua empresa?',
+    body: 'Conta sua maior dor. A gente te chama pra entender e criar uma ferramenta sob medida.',
+    cta: `💬 Comenta DOR que a gente te chama no WhatsApp.
+📝 Ou conta direto no site: urbandigitalpro.net`,
+    pt: `Tem alguma coisa na sua empresa que toma seu tempo todo dia? Orçamento que você perde porque demora pra responder, funcionário que você não sabe quantas horas trabalhou, estoque que some, cliente que não paga...
+
+Conta pra gente qual é a sua maior dor. A gente te chama no WhatsApp em até 48h pra entender melhor e montar uma ferramenta sob medida pra resolver.
+
+Sem compromisso. Só conversa.` },
+
   { slug: 'app-pdf-logo', pillar: 'app', type: 'card',
     label: 'QUOTEZAP', headline: 'Orçamento com', accent: 'a sua logo.',
     body: 'Gere um PDF profissional com o nome e a logo da sua empresa. Cliente confia mais.',
@@ -184,7 +195,7 @@ const posts = [
 // Foto de cada post (social/photos/<cena>.jpg, gerada no Gemini via tools/scenes.js)
 const PHOTO = {
   'en-cobrar': 'phone-car', 'app-30s': 'phone-porch', 'biz-cobrar-pouco': 'planning', 'en-remarcar': 'phone-car',
-  'app-pdf-logo': 'planning', 'en-reclamacao': 'door-client', 'biz-turnover': 'airbnb-bed', 'en-chave': 'lockbox',
+  'lead-dor': 'planning', 'app-pdf-logo': 'planning', 'en-reclamacao': 'door-client', 'biz-turnover': 'airbnb-bed', 'en-chave': 'lockbox',
   'app-idiomas': 'phone-porch', 'biz-extras': 'oven', 'en-preco': 'door-client', 'app-tabela': 'planning',
   'en-deep': 'kitchen-clean', 'biz-whatsapp': 'phone-porch', 'en-fotos': 'bathroom', 'app-passos': 'phone-porch',
   'en-chegando': 'traffic', 'biz-recorrente': 'team', 'en-review': 'happy-client', 'app-preco': 'supplies',

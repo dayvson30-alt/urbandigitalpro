@@ -158,8 +158,8 @@ footer a:hover{color:var(--ink)}
 
     <section id="ideias">
       <form class="idea" id="idea-form">
-        <h2>Que ferramenta faria diferença na sua empresa?</h2>
-        <p class="sub">Conta pra gente o que te toma tempo ou dor de cabeça. As ideias mais pedidas viram as próximas ferramentas.</p>
+        <h2>Qual problema está travando a sua empresa?</h2>
+        <p class="sub">Conte a sua maior dor do dia a dia: o que toma o seu tempo, o que dá prejuízo, o que você faz na mão. A gente te chama no WhatsApp para entender e montar uma ferramenta sob medida.</p>
         <label>Seu tipo de negócio
           <select name="negocio" required>
             <option value="">Escolha…</option>
@@ -172,14 +172,17 @@ footer a:hover{color:var(--ink)}
             <option>Outro</option>
           </select>
         </label>
-        <label>O que você gostaria de ter?
-          <textarea name="ideia" rows="4" maxlength="1000" required placeholder="Ex.: um jeito fácil de controlar quanto cada funcionário trabalhou na semana"></textarea>
+        <label>Qual a sua maior dor hoje?
+          <textarea name="ideia" rows="4" maxlength="1000" required placeholder="Ex.: perco orçamento porque demoro pra responder o cliente"></textarea>
         </label>
-        <label>Seu WhatsApp <span class="opt">(opcional, pra te avisar quando ficar pronto)</span>
-          <input name="whatsapp" type="tel" maxlength="30" autocomplete="tel" placeholder="(407) 000-0000">
+        <label>Seu nome
+          <input name="nome" maxlength="60" autocomplete="name" required placeholder="Como podemos te chamar?">
+        </label>
+        <label>Seu WhatsApp
+          <input name="whatsapp" type="tel" maxlength="30" autocomplete="tel" required minlength="7" placeholder="(407) 000-0000">
         </label>
         <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn btn-main" type="submit">Enviar ideia</button>
+        <button class="btn btn-main" type="submit">Quero resolver isso</button>
         <p class="msg" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -194,7 +197,7 @@ footer a:hover{color:var(--ink)}
   </footer>
 </div>
 <script>
-// Formulário de ideias -> webhook n8n (grava no Postgres e avisa no Telegram)
+// Formulário de dores/leads -> webhook n8n (grava no Postgres e avisa no Telegram)
 (() => {
   const form = document.getElementById('idea-form');
   const msg = form.querySelector('.msg');
@@ -208,7 +211,7 @@ footer a:hover{color:var(--ink)}
       const r = await fetch('https://n8n.urbancleanfl.com/webhook/ideias-ferramentas', { method: 'POST', body: data });
       if (!r.ok) throw new Error(r.status);
       form.reset();
-      msg.textContent = 'Recebido! Obrigado pela ideia 🙌';
+      msg.textContent = 'Recebido! Vamos te chamar no WhatsApp em até 48h pra entender melhor.';
     } catch (err) {
       msg.className = 'msg err';
       msg.textContent = 'Não conseguimos enviar agora. Tenta de novo ou manda no WhatsApp (407) 375-5223.';

@@ -27,5 +27,23 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
 footer b{font-weight:700;font-size:36px}
 footer small{font-size:30px;font-weight:700;color:#0B7A63}
 .app footer small{color:#FFE27A}
-</style></head><body class="en"><main><div class="tag">INGLÊS PARA O TRABALHO</div><h1>Pedindo avaliação</h1><div class="phrase"><span class="lang">EM INGLÊS</span>If you're happy with the cleaning, would you mind leaving us a review?</div><p class="tr"><b>Tradução:</b> Se você gostou da limpeza, se importaria de deixar uma avaliação?</p></main>
-<footer><b>@urbandigitalproducts</b><small>app.urbandigitalpro.net</small></footer></body></html>
+/* layout com foto (p.photo): foto em cima com a etiqueta, painel de texto embaixo */
+body.ph{padding:0}
+.ph .photo{height:580px;background:50% 15%/cover no-repeat;flex:none;position:relative}
+.ph .photo .tag{position:absolute;left:70px;bottom:28px;box-shadow:0 8px 24px -8px rgba(0,0,0,.45)}
+.ph .panel{flex:1;display:flex;flex-direction:column;padding:40px 70px 0}
+.ph main{gap:24px}
+.ph h1{font-size:68px}
+.ph .accent{font-size:72px}
+.ph p{font-size:36px}
+.ph .phrase{font-size:46px;padding:34px 40px;border-radius:26px}
+.ph .lang{font-size:22px;margin-bottom:12px}
+.ph .tr{font-size:32px}
+.ph .box{padding:34px 44px;border-radius:26px}
+.ph li{font-size:38px}
+.ph ul,.ph ol{gap:20px}
+.ph ol li span{width:48px;height:48px;font-size:28px}
+.ph footer{margin-top:24px;padding:26px 0 40px}
+.ph footer b{font-size:32px}
+.ph footer small{font-size:27px}
+</style></head><body class="en ph"><div class="photo" style="background-image:url('../photos/happy-client.jpg')"><div class="tag">INGLÊS PARA O TRABALHO</div></div><div class="panel"><main><h1>Pedindo avaliação</h1><div class="phrase"><span class="lang">EM INGLÊS</span>If you're happy with the cleaning, would you mind leaving us a review?</div><p class="tr"><b>Tradução:</b> Se você gostou da limpeza, se importaria de deixar uma avaliação?</p></main><footer><b>@urbandigitalproducts</b><small>app.urbandigitalpro.net</small></footer></div></body></html>

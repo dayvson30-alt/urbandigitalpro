@@ -181,4 +181,20 @@ const posts = [
     pt: `Não precisa acreditar em mim. Testa.\n\n7 dias grátis, com os seus preços, mandando orçamento de verdade pros seus clientes. Se não fizer diferença, você não continua.` },
 ];
 
+// Foto de cada post (social/photos/<cena>.jpg, gerada no Gemini via tools/scenes.js)
+const PHOTO = {
+  'en-cobrar': 'phone-car', 'app-30s': 'phone-porch', 'biz-cobrar-pouco': 'planning', 'en-remarcar': 'phone-car',
+  'app-pdf-logo': 'planning', 'en-reclamacao': 'door-client', 'biz-turnover': 'airbnb-bed', 'en-chave': 'lockbox',
+  'app-idiomas': 'phone-porch', 'biz-extras': 'oven', 'en-preco': 'door-client', 'app-tabela': 'planning',
+  'en-deep': 'kitchen-clean', 'biz-whatsapp': 'phone-porch', 'en-fotos': 'bathroom', 'app-passos': 'phone-porch',
+  'en-chegando': 'traffic', 'biz-recorrente': 'team', 'en-review': 'happy-client', 'app-preco': 'supplies',
+  'en-cancelar': 'phone-car', 'biz-moveout': 'empty-house', 'en-pets': 'dog', 'app-celular': 'phone-car',
+  'en-pagamento': 'door-client', 'biz-piscina': 'pool', 'en-obrigado': 'happy-client', 'biz-indicacao': 'team',
+  'en-orcamento': 'phone-porch', 'app-teste': 'kitchen-clean',
+};
+for (const p of posts) {
+  if (!PHOTO[p.slug]) throw new Error('post sem foto ' + p.slug);
+  p.photo = PHOTO[p.slug];
+}
+
 module.exports = { posts, CTA, TAGS, LINK };

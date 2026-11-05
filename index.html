@@ -79,6 +79,18 @@ ul.feat li::before{content:"";position:absolute;left:4px;top:15px;width:12px;hei
 .about p{margin:0;color:var(--muted)}
 .about strong{color:var(--ink)}
 
+.idea{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);display:grid;gap:16px;max-width:680px}
+.idea .sub{margin:0}
+.idea label{display:grid;gap:6px;font-weight:600;font-size:15px}
+.idea .opt{font-weight:400;color:var(--muted)}
+.idea select,.idea textarea,.idea input{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+.idea textarea{resize:vertical}
+.idea select:focus,.idea textarea:focus,.idea input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.idea button{justify-self:start;border:0;cursor:pointer}
+.idea button[disabled]{opacity:.6;cursor:wait}
+.idea .msg{margin:0;font-weight:600;color:var(--accent);min-height:1.4em}
+.idea .msg.err{color:#B4412F}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 footer{padding:36px 0 48px;color:var(--muted);font-size:15px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;border-top:1px solid var(--line);margin-top:24px}
 footer a{text-decoration:none}
 footer a:hover{color:var(--ink)}
@@ -143,6 +155,34 @@ footer a:hover{color:var(--ink)}
         <p><strong>Feito por empresário brasileiro, para empresário brasileiro.</strong> A Urban Digital Pro nasceu dentro da Urban Clean &amp; Repair, empresa de limpeza em Davenport, Flórida. As ferramentas saem dos problemas que a gente enfrenta no dia a dia: cliente que só fala inglês, orçamento perdido no WhatsApp, mensagem que ninguém responde de madrugada.</p>
       </div>
     </section>
+
+    <section id="ideias">
+      <form class="idea" id="idea-form">
+        <h2>Que ferramenta faria diferença na sua empresa?</h2>
+        <p class="sub">Conta pra gente o que te toma tempo ou dor de cabeça. As ideias mais pedidas viram as próximas ferramentas.</p>
+        <label>Seu tipo de negócio
+          <select name="negocio" required>
+            <option value="">Escolha…</option>
+            <option>Limpeza de casas</option>
+            <option>Limpeza de piscina</option>
+            <option>Construção / reforma</option>
+            <option>Pintura</option>
+            <option>Paisagismo / jardim</option>
+            <option>Transporte / transfer</option>
+            <option>Outro</option>
+          </select>
+        </label>
+        <label>O que você gostaria de ter?
+          <textarea name="ideia" rows="4" maxlength="1000" required placeholder="Ex.: um jeito fácil de controlar quanto cada funcionário trabalhou na semana"></textarea>
+        </label>
+        <label>Seu WhatsApp <span class="opt">(opcional, pra te avisar quando ficar pronto)</span>
+          <input name="whatsapp" type="tel" maxlength="30" autocomplete="tel" placeholder="(407) 000-0000">
+        </label>
+        <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-main" type="submit">Enviar ideia</button>
+        <p class="msg" role="status" aria-live="polite"></p>
+      </form>
+    </section>
   </main>
 
   <footer>
@@ -153,5 +193,30 @@ footer a:hover{color:var(--ink)}
     </span>
   </footer>
 </div>
+<script>
+// Formulário de ideias -> webhook n8n (grava no Postgres e avisa no Telegram)
+(() => {
+  const form = document.getElementById('idea-form');
+  const msg = form.querySelector('.msg');
+  const btn = form.querySelector('button');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(form));
+    data.set('origem', 'site');
+    btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Enviando…';
+    try {
+      const r = await fetch('https://n8n.urbancleanfl.com/webhook/ideias-ferramentas', { method: 'POST', body: data });
+      if (!r.ok) throw new Error(r.status);
+      form.reset();
+      msg.textContent = 'Recebido! Obrigado pela ideia 🙌';
+    } catch (err) {
+      msg.className = 'msg err';
+      msg.textContent = 'Não conseguimos enviar agora. Tenta de novo ou manda no WhatsApp (407) 375-5223.';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
 </body>
 </html>

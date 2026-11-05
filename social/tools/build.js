@@ -20,7 +20,10 @@ function middle(p) {
   throw new Error('type desconhecido ' + p.type);
 }
 
-const FOOT = '<footer><b>@urbandigitalproducts</b><small>app.urbandigitalpro.net</small></footer>';
+// Marcas no rodapé: "U" da empresa em todos; balão do QuoteZap nos posts do app
+const LOGO_U = '<svg class="mk" viewBox="0 0 100 100"><rect width="100" height="100" rx="50" fill="#0B7A63"/><path d="M30 30 v26 a14 14 0 0 0 28 0 v-26" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/><circle cx="73" cy="29" r="6.5" fill="#FFE27A"/></svg>';
+const LOGO_QZ = '<svg class="mk" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#0F2A2E"/><path d="M18 24 h64 a7 7 0 0 1 7 7 v34 a7 7 0 0 1 -7 7 H44 L28 84 v-12 h-10 a7 7 0 0 1 -7 -7 V31 a7 7 0 0 1 7 -7z" fill="#0B7A63"/><path d="M33 48 l10 10 l23 -23" fill="none" stroke="#FFE27A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const foot = p => `<footer><b>${LOGO_U}@urbandigitalproducts</b><small>${p.pillar === 'app' ? LOGO_QZ : ''}app.urbandigitalpro.net</small></footer>`;
 
 function card(p) {
   return `<!doctype html><html><head><meta charset="utf-8">
@@ -52,6 +55,10 @@ footer{display:flex;justify-content:space-between;align-items:center;border-top:
 footer b{font-weight:700;font-size:36px}
 footer small{font-size:30px;font-weight:700;color:#0B7A63}
 .app footer small{color:#FFE27A}
+footer b,footer small{display:flex;align-items:center;gap:14px}
+.mk{width:56px;height:56px;flex:none}
+.app .mk rect[fill="#0B7A63"]{fill:#0F2A2E}
+.ph .mk{width:50px;height:50px}
 /* layout com foto (p.photo): foto em cima com a etiqueta, painel de texto embaixo */
 body.ph{padding:0}
 .ph .photo{height:580px;background:50% 15%/cover no-repeat;flex:none;position:relative}
@@ -72,8 +79,8 @@ body.ph{padding:0}
 .ph footer b{font-size:32px}
 .ph footer small{font-size:27px}
 </style></head><body class="${p.pillar}${p.photo ? ' ph' : ''}">${p.photo
-    ? `<div class="photo" style="background-image:url('../photos/${p.photo}.jpg')"><div class="tag">${esc(p.label)}</div></div><div class="panel"><main><h1>${esc(p.headline)}</h1>${middle(p)}</main>${FOOT}</div>`
-    : `<main><div class="tag">${esc(p.label)}</div><h1>${esc(p.headline)}</h1>${middle(p)}</main>${FOOT}`}</body></html>`;
+    ? `<div class="photo" style="background-image:url('../photos/${p.photo}.jpg')"><div class="tag">${esc(p.label)}</div></div><div class="panel"><main><h1>${esc(p.headline)}</h1>${middle(p)}</main>${foot(p)}</div>`
+    : `<main><div class="tag">${esc(p.label)}</div><h1>${esc(p.headline)}</h1>${middle(p)}</main>${foot(p)}`}</body></html>`;
 }
 
 const caption = (p, i) => `${p.pt}\n\n${CTA}\n\n${TAGS[i % TAGS.length]}`;

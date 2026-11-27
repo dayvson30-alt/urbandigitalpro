@@ -45,6 +45,13 @@ body{background:var(--paper);color:var(--ink)}
 .lead .ok{font-size:var(--t-small);font-weight:700;color:var(--green)}
 .tag{display:inline-block;font-size:var(--t-small);font-weight:700;padding:3px 10px;background:var(--lemon)}
 .vazio{padding:40px 0;font-size:var(--t-lead)}
+.ind{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:20px}
+.box{background:var(--white);padding:16px}
+.box h3{font-size:var(--t-lead);margin-bottom:10px}
+.bar{display:grid;grid-template-columns:minmax(80px,38%) 1fr auto;gap:8px;align-items:center;font-size:var(--t-small);margin:4px 0}
+.bar i{display:block;height:10px;background:var(--green)}
+.bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note-i{font-size:var(--t-small);color:#33494A;margin-top:8px}
 @media (max-width:600px){.lead .ed{grid-template-columns:1fr}}
 </style>
 </head>
@@ -67,6 +74,7 @@ body{background:var(--paper);color:var(--ink)}
       <div class="acts2"><button class="sbtn alt" id="ref" type="button">Atualizar</button><button class="sbtn" id="out" type="button">Sair</button></div>
     </div>
     <div class="stats" id="stats"></div>
+    <div class="ind" id="ind"></div>
     <div class="filters" id="filters" role="group" aria-label="Filtrar por status"></div>
     <div class="list" id="list"></div>
     <p class="vazio" id="vazio" hidden>Nenhum lead nesse filtro.</p>
@@ -87,6 +95,30 @@ body{background:var(--paper);color:var(--ink)}
     if (!r.ok) throw new Error('http ' + r.status);
     return r.json();
   };
+  const hoje = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+  const ABERTOS = ['novo', 'contatado', 'diagnostico_agendado', 'proposta_enviada'];
+  const precisaAcao = (l) => ABERTOS.includes(l.status) && l.proxima_data && l.proxima_data <= hoje();
+  const contar = (arr, f) => { const m = new Map(); arr.forEach(x => { const k = f(x) || '(sem informação)'; m.set(k, (m.get(k) || 0) + 1); }); return [...m.entries()].sort((a, b) => b[1] - a[1]); };
+  const box = (titulo, pares, nota) => {
+    const max = Math.max(1, ...pares.map(x => x[1]));
+    const b = el('div', { className: 'box' }, [el('h3', { textContent: titulo })]);
+    pares.slice(0, 6).forEach(([k, v]) => { const i = el('i'); i.style.width = Math.round(v / max * 100) + '%'; b.append(el('div', { className: 'bar' }, [el('span', { textContent: k, title: k }), el('div', {}, [i]), el('span', { textContent: v })])); });
+    if (nota) b.append(el('p', { className: 'note-i', textContent: nota }));
+    return b;
+  };
+  const semana = (l) => { const d = new Date(l.criado.slice(0, 10) + 'T12:00:00'); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const indicadores = () => {
+    const base = leads.filter(l => l.status !== 'teste' || filtro === 'teste');
+    const total = base.length, ganhos = base.filter(l => l.status === 'ganho').length;
+    const funil = ['novo', 'contatado', 'diagnostico_agendado', 'proposta_enviada', 'ganho', 'perdido'].map(st => [STATUS[st], base.filter(l => l.status === st).length]);
+    const sem = contar(base, semana).sort((a, b) => a[0] < b[0] ? -1 : 1).slice(-6);
+    return [
+      box('Funil', funil, 'Conversão (ganhos ÷ leads): ' + (total ? Math.round(ganhos / total * 100) : 0) + '%'),
+      box('Origem dos leads', contar(base, l => l.origem), 'Visitantes do site e custo por lead aparecem quando o Pixel ou o Analytics estiver ligado.'),
+      box('Segmentos', contar(base, l => l.segmento)),
+      box('Leads por semana (início da semana)', sem)
+    ];
+  };
   const money = (v) => '$' + Number(v || 0).toLocaleString('en-US', { maximumFractionDigits: 0 });
   const el = (tag, props = {}, kids = []) => { const e = document.createElement(tag); Object.assign(e, props); kids.forEach(k => e.append(k)); return e; };
 
@@ -105,10 +137,11 @@ body{background:var(--paper);color:var(--ink)}
     const sum = (arr) => arr.reduce((a, l) => a + (parseFloat(l.valor_estimado) || 0), 0);
     const stats = [['Leads', leads.length], ['Novos', by('novo').length], ['Em andamento', open.length - by('novo').length], ['Ganhos', by('ganho').length],
       ['Em aberto (valor)', money(sum(open))], ['Ganho (valor)', money(sum(by('ganho')))]];
+    $('ind').replaceChildren(...indicadores());
     $('stats').replaceChildren(...stats.map(([k, v]) => el('div', { className: 'stat' }, [el('b', { textContent: v }), el('span', { textContent: k })])));
-    const fl = [['todos', 'Todos']].concat(Object.entries(STATUS).filter(([k]) => k !== 'teste'), [['teste', 'Teste']]);
+    const fl = [['todos', 'Todos'], ['acoes', 'Ações de hoje']].concat(Object.entries(STATUS).filter(([k]) => k !== 'teste'), [['teste', 'Teste']]);
     $('filters').replaceChildren(...fl.map(([k, v]) => { const b = el('button', { type: 'button', textContent: v }); b.setAttribute('aria-pressed', String(k === filtro)); b.onclick = () => { const antes = filtro; filtro = k; if (k === 'teste' || antes === 'teste') load(); else render(); }; return b; }));
-    const vis = leads.filter(l => filtro === 'todos' || l.status === filtro);
+    const vis = leads.filter(l => filtro === 'todos' || (filtro === 'acoes' ? precisaAcao(l) : l.status === filtro));
     $('vazio').hidden = vis.length > 0;
     $('list').replaceChildren(...vis.map(card));
   };
@@ -118,6 +151,7 @@ body{background:var(--paper);color:var(--ink)}
     const c = el('article', { className: 'lead' });
     c.append(el('p', { className: 'meta', textContent: '#' + l.id + ' · ' + l.criado + ' · ' + (l.origem || 'site') + (l.utm_campaign ? ' · ' + l.utm_campaign : '') }));
     c.append(el('h2', { textContent: l.nome + (l.empresa ? ' — ' + l.empresa : '') }));
+    if (precisaAcao(l)) c.append(el('p', {}, [el('span', { className: 'tag', textContent: l.proxima_data < hoje() ? 'Ação atrasada' : 'Ação de hoje' })]));
     const row = (k, v) => v ? el('p', { className: 'row' }, [el('b', { textContent: k + ': ' }), document.createTextNode(v)]) : null;
     [row('Segmento', l.segmento), row('WhatsApp', l.whatsapp), row('E-mail', l.email), row('Cidade', l.cidade_estado), row('Equipe', l.funcionarios), row('Objetivo', l.objetivo), row('Sistemas', l.sistemas)].filter(Boolean).forEach(x => c.append(x));
     c.append(el('p', { className: 'dor', textContent: l.dificuldade }));
@@ -125,17 +159,18 @@ body{background:var(--paper);color:var(--ink)}
     const pa = el('input', { type: 'text', maxLength: 200, value: l.proxima_acao || '', placeholder: 'Ex.: ligar amanhã' });
     const rs = el('input', { type: 'text', maxLength: 80, value: l.responsavel || '' });
     const vl = el('input', { type: 'text', inputMode: 'decimal', value: l.valor_estimado || '', placeholder: '0' });
+    const dt = el('input', { type: 'date', value: l.proxima_data || '' });
     const nt = el('textarea', { rows: 2, maxLength: 2000, value: l.notas || '', placeholder: 'Anotações' });
     const lab = (t, inp, full) => el('label', { className: full ? 'full' : '' }, [document.createTextNode(t), inp]);
-    c.append(el('div', { className: 'ed' }, [lab('Status', sel), lab('Valor estimado (US$)', vl), lab('Próxima ação', pa, true), lab('Responsável', rs), lab('Notas', nt, true)]));
+    c.append(el('div', { className: 'ed' }, [lab('Status', sel), lab('Valor estimado (US$)', vl), lab('Próxima ação', pa, true), lab('Data da próxima ação', dt), lab('Responsável', rs), lab('Notas', nt, true)]));
     const ok = el('span', { className: 'ok' });
     const save = el('button', { type: 'button', className: 'sbtn', textContent: 'Salvar' });
     save.onclick = async () => {
       save.disabled = true; ok.textContent = 'Salvando…';
       try {
-        const d = await call({ action: 'update', id: l.id, status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value });
+        const d = await call({ action: 'update', id: l.id, status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value, proxima_data: dt.value });
         if (!d.ok) throw new Error(d.error);
-        Object.assign(l, { status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value });
+        Object.assign(l, { status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value, proxima_data: dt.value });
         ok.textContent = 'Salvo';
         setTimeout(() => render(), 700);
       } catch (e) { ok.textContent = 'Não salvou. Tente de novo.'; } finally { save.disabled = false; }

@@ -176,6 +176,33 @@
   </ol>
 </section>
 
+<section class="ch on-paper" id="demo">
+  <div class="demo-grid">
+    <div class="demo-text">
+      <h2 class="rise">Veja como pode funcionar.</h2>
+      <p class="sub rise" style="--d:80ms">Uma conversa de exemplo, do primeiro oi até o aviso para a sua equipe. Os nomes e as informações são inventados, só para ilustrar.</p>
+      <div class="tabs rise" id="dtabs" role="group" aria-label="Escolha um exemplo" style="--d:120ms">
+        <button type="button" aria-pressed="true" data-d="obra">Construção e reformas</button>
+        <button type="button" aria-pressed="false" data-d="limpeza">Limpeza (em inglês)</button>
+        <button type="button" aria-pressed="false" data-d="vh">Vacation homes (em espanhol)</button>
+      </div>
+      <ol class="dsteps rise" style="--d:160ms">
+        <li>O cliente envia uma mensagem.</li>
+        <li>A inteligência artificial identifica a necessidade.</li>
+        <li>O sistema coleta as informações.</li>
+        <li>O cliente recebe orientação.</li>
+        <li>O atendimento humano entra quando necessário.</li>
+      </ol>
+      <p class="dnote rise" style="--d:200ms">Exemplo ilustrativo. A conversa real é desenhada com você, e o que a IA responde é combinado antes.</p>
+    </div>
+    <div class="chat rise" style="--d:100ms">
+      <div class="chat-h"><b>Cliente</b><span>Exemplo fictício</span></div>
+      <div class="chat-b" id="chat-b" role="log" aria-label="Conversa de exemplo"></div>
+      <div class="chat-f"><p id="resumo"></p><button type="button" id="replay" class="sbtn2">Ver de novo</button></div>
+    </div>
+  </div>
+</section>
+
 <section class="ch diag on-ink" id="diagnostico">
   <h2 class="rise">Descubra quanto da sua empresa pode ser automatizado.</h2>
   <p class="sub rise" style="--d:80ms">Conte para nós quais são as maiores dificuldades da sua operação. Vamos analisar seu processo e apresentar possibilidades de automação.</p>
@@ -350,6 +377,41 @@
   const pickChip = (label) => form.querySelectorAll('#chips button').forEach(b => b.setAttribute('aria-pressed', String(b.textContent.trim() === label)));
   document.getElementById('sec-cta').addEventListener('click', () => { const s = S[cur]; form.elements.segmento.value = s.sel; pickChip(s.chip); });
   document.querySelectorAll('[data-obj]').forEach(a => a.addEventListener('click', () => { form.elements.objetivo.value = a.dataset.obj; }));
+
+  // ---- demonstração: conversa de exemplo (dados fictícios) ----
+  const D = {
+    obra: { resumo: 'Resumo para o dono: pedido de orçamento de reforma de banheiro em Kissimmee, para o mês que vem, com foto e medidas. A equipe foi avisada.',
+      m: [['c','Oi, vocês fazem reforma de banheiro? Quero um orçamento.'],['b','Oi! Fazemos sim. Para adiantar: em que cidade fica a casa e quando você quer começar?'],['c','Kissimmee. Queria começar no mês que vem.'],['b','Perfeito. Pode mandar uma foto do banheiro atual e o tamanho aproximado?'],['c','[foto enviada] Uns 6 por 8 pés.'],['b','Obrigado! Já registrei o seu pedido. Um responsável vai te chamar hoje para combinar a visita. Prefere de manhã ou à tarde?'],['s','Pedido registrado e equipe avisada']] },
+    limpeza: { resumo: 'Resumo para a dona: cliente quer limpeza semanal de casa de 3 quartos no CEP 34746. Falta confirmar preço e dias com a equipe.',
+      m: [['c','Hi, do you clean 3-bedroom homes? How much is it?'],['b','Hi! Yes, we do. Is it a one-time clean or recurring? And what is your ZIP code?'],['c','Weekly. ZIP is 34746.'],['b','Great, thanks! I will pass this to our team to confirm the price and the available days. Is morning OK for you?'],['c','Mornings are perfect.'],['s','Pedido registrado e equipe avisada']] },
+    vh: { resumo: 'Resumo para o gestor: hóspede da casa 12 relata ar-condicionado sem esfriar. Ocorrência registrada e manutenção avisada.',
+      m: [['c','Hola, ¿a qué hora es el check-in?'],['b','¡Hola! El check-in es a partir de las 4:00 PM. El código de acceso se envía el día de su llegada.'],['c','Gracias. Otra cosa: el aire acondicionado no enfría.'],['b','Lamento eso. ¿Me dice el número de la casa y si el termostato está en modo "cool"?'],['c','Casa 12, sí está en cool.'],['b','Gracias. Ya avisé al equipo de mantenimiento y alguien se pondrá en contacto pronto.'],['s','Ocorrência registrada e manutenção avisada']] }
+  };
+  const dtabs = document.getElementById('dtabs'), chatB = document.getElementById('chat-b'), resumo = document.getElementById('resumo');
+  let dCur = 'obra', dTimers = [], dStarted = false;
+  const dStop = () => { dTimers.forEach(clearTimeout); dTimers = []; };
+  const dAdd = (tipo, texto) => {
+    const m = document.createElement('p');
+    m.className = 'msg-' + tipo; m.textContent = texto;
+    chatB.append(m); requestAnimationFrame(() => m.classList.add('on'));
+    chatB.scrollTop = chatB.scrollHeight;
+  };
+  const dPlay = () => {
+    dStop(); chatB.replaceChildren(); resumo.textContent = '';
+    const d = D[dCur];
+    if (reduce) { d.m.forEach(([t, x]) => dAdd(t, x)); resumo.textContent = d.resumo; return; }
+    d.m.forEach(([t, x], i) => dTimers.push(setTimeout(() => dAdd(t, x), 500 + i * 1300)));
+    dTimers.push(setTimeout(() => { resumo.textContent = d.resumo; }, 500 + d.m.length * 1300));
+  };
+  dtabs.addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b || b.dataset.d === dCur) return;
+    dCur = b.dataset.d; dtabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    dStarted = true; dPlay(); track('demo_exemplo', { content_name: dCur }, true);
+  });
+  document.getElementById('replay').addEventListener('click', () => { dPlay(); track('demo_replay', {}, true); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting && !dStarted) { dStarted = true; dPlay(); o.disconnect(); } }), { threshold: 0.35 }).observe(document.getElementById('demo'));
+  } else { dStarted = true; dPlay(); }
 })();
 </script>
 </body>

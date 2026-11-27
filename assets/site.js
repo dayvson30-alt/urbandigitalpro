@@ -79,7 +79,11 @@
         if (!r.ok) throw new Error(r.status);
         form.reset();
         form.querySelectorAll('#chips button').forEach(b => b.setAttribute('aria-pressed', 'false'));
-        msg.textContent = 'Recebido! Vamos te chamar no WhatsApp em até 48 horas para entender a sua empresa.';
+        msg.textContent = 'Recebido! Vamos te chamar no WhatsApp em até 48 horas para entender a sua empresa. ';
+      const ag = document.createElement('a');
+      ag.href = 'https://wa.me/14073755223?text=' + encodeURIComponent('Oi! Acabei de pedir um diagnóstico no site e quero agendar uma conversa.');
+      ag.target = '_blank'; ag.rel = 'noopener'; ag.className = 'lnk'; ag.dataset.ev = 'whatsapp'; ag.textContent = 'Prefere já agendar um horário?';
+      msg.append(ag);
         track('Lead', { content_name: 'diagnostico' });
       } catch (err) {
         fail('Não conseguimos enviar agora. Tenta de novo ou manda no WhatsApp (407) 375-5223.');

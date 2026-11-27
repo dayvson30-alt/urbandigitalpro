@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRM · Urban Digital Pro</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink)}
+.crm{max-width:1200px;margin:0 auto;padding:20px var(--m) 80px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:8px 0 20px}
+.top .brand img{width:56px;height:56px}
+.top h1{font-size:var(--t-h3);line-height:1}
+.top .acts2{display:flex;gap:10px}
+.sbtn{font:700 var(--t-small) var(--f-body);padding:12px 18px;border:0;cursor:pointer;background:var(--ink);color:var(--paper)}
+.sbtn.alt{background:#DCE6E2;color:var(--ink)}
+.login{max-width:460px;margin:12vh auto 0;background:var(--ink);color:var(--paper);padding:32px;display:grid;gap:16px}
+.login h1{font-size:var(--t-h3);color:var(--white)}
+.login input[type=password]{font:inherit;padding:15px 16px;border:0;width:100%;background:var(--white);color:var(--ink)}
+.login label.k{display:flex;gap:10px;align-items:center;font-size:var(--t-small)}
+.login .err{color:var(--lemon);font-weight:700;min-height:1.4em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.stat{background:var(--ink);color:var(--paper);padding:16px 18px}
+.stat b{display:block;font:800 var(--t-h3) var(--f-display);letter-spacing:-.02em;color:var(--lemon)}
+.stat span{font-size:var(--t-small)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.filters button{font:600 var(--t-small) var(--f-body);padding:10px 14px;border:0;cursor:pointer;background:#DCE6E2;color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--green);color:var(--white)}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:14px}
+.lead{background:var(--white);padding:20px;display:grid;gap:10px;align-content:start}
+.lead .meta{font-size:var(--t-small);color:#33494A}
+.lead h2{font-size:var(--t-lead);line-height:1.15}
+.lead .row{font-size:var(--t-small)}
+.lead .row b{font-weight:700}
+.lead .dor{background:#EDF2F0;padding:10px 12px;font-size:var(--t-small)}
+.lead .ed{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.lead .ed label{display:grid;gap:4px;font-size:var(--t-small);font-weight:700}
+.lead .ed .full{grid-column:1/-1}
+.lead select,.lead input,.lead textarea{font:inherit;font-size:var(--t-small);padding:10px;border:0;background:#EDF2F0;color:var(--ink);width:100%;border-radius:0}
+.lead .btns{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.lead .ok{font-size:var(--t-small);font-weight:700;color:var(--green)}
+.tag{display:inline-block;font-size:var(--t-small);font-weight:700;padding:3px 10px;background:var(--lemon)}
+.vazio{padding:40px 0;font-size:var(--t-lead)}
+@media (max-width:600px){.lead .ed{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="crm">
+  <section id="login" class="login" hidden>
+    <h1>CRM · Urban Digital Pro</h1>
+    <p>Acesso restrito. Digite o código de acesso.</p>
+    <form id="lf" style="display:grid;gap:14px">
+      <input type="password" id="tok" autocomplete="current-password" placeholder="Código de acesso" required>
+      <label class="k"><input type="checkbox" id="keep"> Manter conectado neste aparelho</label>
+      <button class="btn" type="submit">Entrar</button>
+      <p class="err" id="lerr" role="status"></p>
+    </form>
+  </section>
+
+  <section id="app" hidden>
+    <div class="top">
+      <a class="brand" href="../" aria-label="Voltar ao site"><img src="../brand/logo-empresa.svg" width="56" height="56" alt=""><h1>CRM</h1></a>
+      <div class="acts2"><button class="sbtn alt" id="ref" type="button">Atualizar</button><button class="sbtn" id="out" type="button">Sair</button></div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar por status"></div>
+    <div class="list" id="list"></div>
+    <p class="vazio" id="vazio" hidden>Nenhum lead nesse filtro.</p>
+  </section>
+</main>
+<script>
+(() => {
+  const API = 'https://n8n.urbancleanfl.com/webhook/crm';
+  const STATUS = { novo: 'Novo', contatado: 'Contatado', diagnostico_agendado: 'Diagnóstico agendado', proposta_enviada: 'Proposta enviada', ganho: 'Ganho', perdido: 'Perdido', teste: 'Teste' };
+  const $ = (id) => document.getElementById(id);
+  let token = '', leads = [], filtro = 'todos';
+  const getTok = () => { try { return localStorage.getItem('udp_crm') || sessionStorage.getItem('udp_crm') || ''; } catch (e) { return ''; } };
+  const setTok = (t, keep) => { try { sessionStorage.removeItem('udp_crm'); localStorage.removeItem('udp_crm'); if (t) (keep ? localStorage : sessionStorage).setItem('udp_crm', t); } catch (e) {} };
+
+  const call = async (fields) => {
+    const body = new URLSearchParams({ token, ...fields });
+    const r = await fetch(API, { method: 'POST', body });
+    if (!r.ok) throw new Error('http ' + r.status);
+    return r.json();
+  };
+  const money = (v) => '$' + Number(v || 0).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  const el = (tag, props = {}, kids = []) => { const e = document.createElement(tag); Object.assign(e, props); kids.forEach(k => e.append(k)); return e; };
+
+  const showLogin = (msg) => { $('app').hidden = true; $('login').hidden = false; $('lerr').textContent = msg || ''; };
+  const load = async () => {
+    try {
+      const d = await call({ action: 'list', status: filtro === 'teste' ? 'teste' : '' });
+      if (!d.ok) { setTok(''); token = ''; return showLogin('Código incorreto.'); }
+      leads = d.leads; $('login').hidden = true; $('app').hidden = false; render();
+    } catch (e) { showLogin('Não foi possível conectar. Tente de novo.'); }
+  };
+
+  const render = () => {
+    const by = (s) => leads.filter(l => l.status === s);
+    const open = leads.filter(l => ['novo', 'contatado', 'diagnostico_agendado', 'proposta_enviada'].includes(l.status));
+    const sum = (arr) => arr.reduce((a, l) => a + (parseFloat(l.valor_estimado) || 0), 0);
+    const stats = [['Leads', leads.length], ['Novos', by('novo').length], ['Em andamento', open.length - by('novo').length], ['Ganhos', by('ganho').length],
+      ['Em aberto (valor)', money(sum(open))], ['Ganho (valor)', money(sum(by('ganho')))]];
+    $('stats').replaceChildren(...stats.map(([k, v]) => el('div', { className: 'stat' }, [el('b', { textContent: v }), el('span', { textContent: k })])));
+    const fl = [['todos', 'Todos']].concat(Object.entries(STATUS).filter(([k]) => k !== 'teste'), [['teste', 'Teste']]);
+    $('filters').replaceChildren(...fl.map(([k, v]) => { const b = el('button', { type: 'button', textContent: v }); b.setAttribute('aria-pressed', String(k === filtro)); b.onclick = () => { const antes = filtro; filtro = k; if (k === 'teste' || antes === 'teste') load(); else render(); }; return b; }));
+    const vis = leads.filter(l => filtro === 'todos' || l.status === filtro);
+    $('vazio').hidden = vis.length > 0;
+    $('list').replaceChildren(...vis.map(card));
+  };
+
+  const card = (l) => {
+    const wa = l.wa_digits ? 'https://wa.me/' + l.wa_digits : '';
+    const c = el('article', { className: 'lead' });
+    c.append(el('p', { className: 'meta', textContent: '#' + l.id + ' · ' + l.criado + ' · ' + (l.origem || 'site') + (l.utm_campaign ? ' · ' + l.utm_campaign : '') }));
+    c.append(el('h2', { textContent: l.nome + (l.empresa ? ' — ' + l.empresa : '') }));
+    const row = (k, v) => v ? el('p', { className: 'row' }, [el('b', { textContent: k + ': ' }), document.createTextNode(v)]) : null;
+    [row('Segmento', l.segmento), row('WhatsApp', l.whatsapp), row('E-mail', l.email), row('Cidade', l.cidade_estado), row('Equipe', l.funcionarios), row('Objetivo', l.objetivo), row('Sistemas', l.sistemas)].filter(Boolean).forEach(x => c.append(x));
+    c.append(el('p', { className: 'dor', textContent: l.dificuldade }));
+    const sel = el('select'); Object.entries(STATUS).forEach(([k, v]) => sel.append(el('option', { value: k, textContent: v, selected: k === l.status })));
+    const pa = el('input', { type: 'text', maxLength: 200, value: l.proxima_acao || '', placeholder: 'Ex.: ligar amanhã' });
+    const rs = el('input', { type: 'text', maxLength: 80, value: l.responsavel || '' });
+    const vl = el('input', { type: 'text', inputMode: 'decimal', value: l.valor_estimado || '', placeholder: '0' });
+    const nt = el('textarea', { rows: 2, maxLength: 2000, value: l.notas || '', placeholder: 'Anotações' });
+    const lab = (t, inp, full) => el('label', { className: full ? 'full' : '' }, [document.createTextNode(t), inp]);
+    c.append(el('div', { className: 'ed' }, [lab('Status', sel), lab('Valor estimado (US$)', vl), lab('Próxima ação', pa, true), lab('Responsável', rs), lab('Notas', nt, true)]));
+    const ok = el('span', { className: 'ok' });
+    const save = el('button', { type: 'button', className: 'sbtn', textContent: 'Salvar' });
+    save.onclick = async () => {
+      save.disabled = true; ok.textContent = 'Salvando…';
+      try {
+        const d = await call({ action: 'update', id: l.id, status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value });
+        if (!d.ok) throw new Error(d.error);
+        Object.assign(l, { status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value });
+        ok.textContent = 'Salvo ✓';
+        setTimeout(() => render(), 700);
+      } catch (e) { ok.textContent = 'Não salvou. Tente de novo.'; } finally { save.disabled = false; }
+    };
+    const btns = el('div', { className: 'btns' }, [save]);
+    if (wa) btns.append(el('a', { className: 'sbtn alt', href: wa, target: '_blank', rel: 'noopener', textContent: 'Abrir WhatsApp', style: 'text-decoration:none' }));
+    btns.append(ok); c.append(btns);
+    return c;
+  };
+
+  $('lf').onsubmit = (e) => { e.preventDefault(); token = $('tok').value.trim(); setTok(token, $('keep').checked); $('tok').value = ''; load(); };
+  $('ref').onclick = load;
+  $('out').onclick = () => { setTok(''); token = ''; leads = []; showLogin(''); };
+  token = getTok(); if (token) load(); else showLogin('');
+})();
+</script>
+</body>
+</html>

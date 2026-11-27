@@ -94,7 +94,7 @@ body{background:var(--paper);color:var(--ink)}
   const load = async () => {
     try {
       const d = await call({ action: 'list', status: filtro === 'teste' ? 'teste' : '' });
-      if (!d.ok) { setTok(''); token = ''; return showLogin('Código incorreto.'); }
+      if (!d.ok) { setTok(''); token = ''; return showLogin(d.error === 'locked' ? 'Muitas tentativas erradas. Aguarde 15 minutos e tente de novo.' : 'Código incorreto.'); }
       leads = d.leads; $('login').hidden = true; $('app').hidden = false; render();
     } catch (e) { showLogin('Não foi possível conectar. Tente de novo.'); }
   };

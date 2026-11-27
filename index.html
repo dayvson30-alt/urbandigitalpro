@@ -147,6 +147,7 @@
       <button type="button" aria-pressed="false" data-k="paisagismo">Paisagismo e piscinas</button>
       <button type="button" aria-pressed="false" data-k="comercio">Restaurantes e comércio</button>
       <button type="button" aria-pressed="false" data-k="beleza">Beleza e serviços profissionais</button>
+      <button type="button" aria-pressed="false" data-k="vh">Gestão de vacation homes</button>
     </div>
     <div class="panel rise" id="panel" aria-live="polite" style="--d:140ms">
       <h3 id="sec-t">Orçamento que demora e cliente sem acompanhamento.</h3>
@@ -208,6 +209,7 @@
           <option>Paisagismo e piscinas</option>
           <option>Restaurantes e comércio</option>
           <option>Beleza e serviços profissionais</option>
+          <option>Gestão de vacation homes</option>
           <option>Outro</option>
         </select>
       </label>
@@ -324,7 +326,10 @@
                   n:'Restaurantes, lojas, pequenos comércios e empresas de alimentação. Exemplos de pontos que podemos analisar no seu caso.' },
     beleza:     { img:'img/salao.webp', alt:'Dona de salão de beleza olhando o celular entre uma cliente e outra', url:'segmentos/beleza-servicos-profissionais/', nome:'Beleza e serviços profissionais', sel:'Beleza e serviços profissionais', chip:'Agenda e equipe',
                   t:'Agenda com buracos e cliente que não aparece.', l:['Agendamento','Confirmação de horários','Cancelamentos','Atendimento','Pós-venda'],
-                  n:'Salões, barbearias, serviços profissionais e autônomos. Clínicas e áreas reguladas exigem cuidados específicos, que avaliamos caso a caso.' }
+                  n:'Salões, barbearias, serviços profissionais e autônomos. Clínicas e áreas reguladas exigem cuidados específicos, que avaliamos caso a caso.' },
+    vh:         { img:'img/airbnb-bed.webp', alt:'Profissional arrumando a cama de uma casa de temporada na Flórida', url:'segmentos/gestao-vacation-homes/', nome:'Gestão de vacation homes', sel:'Gestão de vacation homes', chip:'Agenda e equipe',
+                  t:'Hóspedes que escrevem a toda hora e viradas que não podem atrasar.', l:['Mensagens de hóspedes a qualquer hora','Virada de hóspedes mal coordenada','Pedidos de manutenção espalhados','Relatórios para os proprietários feitos à mão','Falta de controle do que há em cada casa'],
+                  n:'Empresas de gestão de vacation homes, short-term rentals e property managers. Exemplos de pontos que podemos analisar no seu caso.' }
   };
   const tabs = document.getElementById('tabs'), img = document.getElementById('sec-img'), panel = document.getElementById('panel'),
         t = document.getElementById('sec-t'), l = document.getElementById('sec-l'), n = panel.querySelector('.note');

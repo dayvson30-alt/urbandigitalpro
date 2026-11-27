@@ -136,7 +136,7 @@ body{background:var(--paper);color:var(--ink)}
         const d = await call({ action: 'update', id: l.id, status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value });
         if (!d.ok) throw new Error(d.error);
         Object.assign(l, { status: sel.value, proxima_acao: pa.value, responsavel: rs.value, valor_estimado: vl.value, notas: nt.value });
-        ok.textContent = 'Salvo ✓';
+        ok.textContent = 'Salvo';
         setTimeout(() => render(), 700);
       } catch (e) { ok.textContent = 'Não salvou. Tente de novo.'; } finally { save.disabled = false; }
     };

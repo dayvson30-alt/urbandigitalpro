@@ -3,214 +3,472 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Urban Digital Pro</title>
-<link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="description" content="Conte a maior dor da sua empresa. A gente resolve, com preço e prazo. Para empresários brasileiros nos EUA.">
+<title>Urban Digital Pro · Soluções para empresários brasileiros nos EUA</title>
+<meta name="description" content="Automatize e coloque inteligência artificial no seu negócio. Conte a maior dor da sua empresa e a gente constrói a solução, com preço e prazo. Para empresários brasileiros nos EUA.">
 <meta property="og:title" content="Urban Digital Pro">
 <meta property="og:description" content="Qual a maior dor da sua empresa? A gente resolve, com preço e prazo. Para empresários brasileiros nos EUA.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <style>
 :root{
-  --bg:#EDF2F0; --surface:#FFFFFF; --sunk:#E2EAE7; --ink:#0F2A2E; --muted:#56706F; --line:#C9D7D2;
-  --accent:#0B7A63; --accent-ink:#FFFFFF; --accent-soft:#D3ECE4; --wa:#1C9E50; --wa-ink:#FFFFFF; --lemon:#FFE27A;
-  --shadow:0 1px 0 rgba(15,42,46,.06), 0 12px 32px -12px rgba(15,42,46,.22);
+  --green:#0B7A63; --green-d:#075A49; --lemon:#FFE27A; --ink:#0F2A2E; --paper:#EDF2F0; --white:#FFFFFF;
+  --m:clamp(16px,3vw,40px);
   --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --f-body:"Figtree","Segoe UI",system-ui,sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#0B181A; --surface:#122427; --sunk:#0E1E21; --ink:#E3EEEB; --muted:#93AAA6; --line:#24393C;
-    --accent:#3CC7A0; --accent-ink:#06201A; --accent-soft:#163A33;
-    --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 32px -12px rgba(0,0,0,.6);
-  }
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --t-small:16px; --t-body:18px; --t-lead:clamp(19px,1.5vw,22px); --t-h3:clamp(22px,2.5vw,36px); --t-h2:clamp(36px,5vw,72px);
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{margin:0;background:var(--green);color:var(--ink);font-family:var(--f-body);font-size:var(--t-body);line-height:1.55}
+img{display:block;max-width:100%}
 a{color:inherit}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-header{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
-.brand{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:-.01em;text-decoration:none}
-.brand span{color:var(--accent)}
-.ig{font-size:15px;color:var(--muted);text-decoration:none}
-.ig:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--f-display);font-weight:800;letter-spacing:-.03em;margin:0;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:3px solid var(--lemon);outline-offset:3px}
+.ch{min-height:90svh;padding:clamp(72px,9vw,128px) var(--m);position:relative}
+.on-green{background:var(--green);color:var(--white)}
+.on-paper{background:var(--paper);color:var(--ink)}
+.on-ink{background:var(--ink);color:var(--paper)}
+.on-lemon{background:var(--lemon);color:var(--ink)}
+h2{font-size:var(--t-h2);line-height:.98}
 
-.hero{padding:48px 0 56px}
-.eyebrow{display:inline-block;font-size:14px;font-weight:600;background:var(--accent-soft);color:var(--accent);padding:6px 12px;border-radius:999px}
-h1{font-family:var(--f-display);font-weight:800;font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:-.02em;margin:18px 0 18px;max-width:16ch}
-h1 mark{background:linear-gradient(transparent 62%,var(--lemon) 62%);color:inherit;padding:0 .05em}
-@media (prefers-color-scheme: dark){h1 mark{background:linear-gradient(transparent 62%,rgba(255,226,122,.35) 62%)}}
-.lead{font-size:19px;color:var(--muted);max-width:52ch;margin:0 0 28px}
-.ctas{display:flex;flex-wrap:wrap;gap:12px}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;padding:14px 22px;border-radius:12px;font-size:17px}
-.btn-main{background:var(--accent);color:var(--accent-ink)}
-.btn-wa{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
-.btn:hover{filter:brightness(1.05)}
-.btn:focus-visible{outline:3px solid var(--lemon);outline-offset:2px}
+/* botões e links */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 28px;font:700 var(--t-body) var(--f-body);text-decoration:none;border:0;border-radius:0;cursor:pointer;background:var(--lemon);color:var(--ink)}
+.lnk{font-weight:700;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+.btn,.cell{transition:transform .2s var(--ease),filter .2s}
+.btn:hover,.cell:hover{transform:translateY(-3px);filter:brightness(1.06)}
+.btn:active,.cell:active{transform:translateY(0) scale(.98)}
 
-h2{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,4vw,36px);letter-spacing:-.015em;margin:0 0 8px}
-.sub{color:var(--muted);margin:0 0 28px}
-section{padding:40px 0}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);padding:0 0 0 var(--m);min-height:100svh}
+.hero-main{display:flex;flex-direction:column;padding:14px var(--m) clamp(40px,6vw,72px) 0}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font:800 var(--t-lead) var(--f-display);letter-spacing:-.01em}
+.brand img{width:88px;height:88px}
+.bar nav{display:flex;gap:22px;font-weight:600;font-size:var(--t-small)}
+.bar nav a{text-decoration:none}
+.bar nav a:hover{text-decoration:underline;text-underline-offset:5px}
+.hero-text{margin:auto 0;padding-top:clamp(40px,8vh,96px)}
+h1{font-size:clamp(30px,5vw,84px);line-height:.95}
+h1 .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em;white-space:nowrap}
+h1 .ln span{display:block}
+h1 .lm{color:var(--lemon)}
+.lead{font-size:var(--t-lead);max-width:34ch;margin:clamp(22px,3vw,36px) 0 clamp(26px,3vw,40px)}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px}
+.hero-photo{margin:0;position:relative;overflow:hidden;min-height:60svh}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:62% 50%;position:absolute;inset:0}
 
-.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
-@media (max-width:820px){.grid{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow)}
-.card h3{font-family:var(--f-display);font-weight:800;font-size:26px;margin:10px 0 6px;letter-spacing:-.01em}
-.card p{margin:0 0 16px;color:var(--muted)}
-.tag{display:inline-block;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px}
-.tag-live{background:var(--accent-soft);color:var(--accent)}
-.tag-soon{background:var(--sunk);color:var(--muted)}
-ul.feat{list-style:none;padding:0;margin:0 0 22px}
-ul.feat li{padding:8px 0 8px 28px;position:relative;border-top:1px solid var(--line)}
-ul.feat li:first-child{border-top:0}
-ul.feat li::before{content:"";position:absolute;left:4px;top:15px;width:12px;height:7px;border-left:2.5px solid var(--accent);border-bottom:2.5px solid var(--accent);transform:rotate(-45deg)}
-.price{display:flex;align-items:baseline;gap:8px;margin:0 0 18px}
-.price b{font-family:var(--f-display);font-size:38px;font-weight:800}
-.price span{color:var(--muted)}
-.stack{display:grid;gap:18px}
-.link{font-weight:700;color:var(--accent);text-decoration:none}
-.link:hover{text-decoration:underline}
+/* setores */
+.sec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto 1fr auto;column-gap:clamp(24px,4vw,64px);row-gap:28px}
+.sec-grid>.sq{grid-column:1;grid-row:1/5;align-self:center}
+.sec-grid>:not(.sq){grid-column:2}
+.sq{margin:0;position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--ink)}
+.sq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s var(--ease)}
+.sq img.out{opacity:0}
+.tabs{display:flex;flex-wrap:wrap;gap:6px 22px}
+.tabs button{font:600 var(--t-body) var(--f-body);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:6px;text-decoration-thickness:3px;transition:text-decoration-color .2s}
+.tabs button[aria-pressed="false"]{color:#46605F}
+.tabs button[aria-pressed="true"]{color:var(--ink);text-decoration-color:var(--green)}
+.tabs button:hover{text-decoration-color:var(--green)}
+.panel h3{font-size:var(--t-h3);line-height:1.02;margin-bottom:16px}
+.panel p{max-width:36ch}
+.panel .note{font-size:var(--t-small);color:#46605F;margin-top:14px}
+.panel{transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.panel.out{opacity:0;transform:translateY(10px)}
+.cells{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.cell{display:flex;align-items:center;min-height:72px;padding:0 22px;font-weight:700;font-size:var(--t-body);text-decoration:none}
+.cell-ink{background:var(--ink);color:var(--paper)}
+.cell-tone{background:#DCE6E2;color:var(--ink)}
 
-.about{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;background:var(--sunk);border-radius:18px;padding:26px}
-.about .mark{width:52px;height:52px;border-radius:14px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:22px}
-.about p{margin:0;color:var(--muted)}
-.about strong{color:var(--ink)}
+/* como funciona */
+.how-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;align-items:end}
+.how-grid h2{grid-column:1/8;grid-row:1;align-self:start;max-width:10ch}
+.stage{display:flex;flex-direction:column;gap:14px}
+.s1{grid-column:1/4;grid-row:2}.s2{grid-column:4/8;grid-row:2}.s3{grid-column:8/13;grid-row:1/3}
+.tile{padding:14px;overflow:hidden}
+.tile img{width:100%;height:100%;object-fit:cover}
+.t1{background:var(--green);height:30vh}.t2{background:var(--lemon);height:44vh}.t3{background:var(--paper);height:60vh}
+.stage h3{font-size:var(--t-lead);letter-spacing:-.01em;margin-top:6px}
+.stage p{font-size:var(--t-body);max-width:34ch}
 
-.idea{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);display:grid;gap:16px;max-width:680px}
-.idea .sub{margin:0}
-.idea label{display:grid;gap:6px;font-weight:600;font-size:15px}
-.idea .opt{font-weight:400;color:var(--muted)}
-.idea select,.idea textarea,.idea input{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+/* sobre */
+.about{display:flex;align-items:center}
+.about-in{display:grid;gap:clamp(24px,3vw,44px);width:100%}
+.about h2{max-width:14ch}
+.stmt{font:700 var(--t-h3)/1.15 var(--f-display);letter-spacing:-.02em;max-width:36ch}
+.body2{columns:2;column-gap:clamp(24px,3vw,48px);font-size:var(--t-body);line-height:1.5;max-width:900px}
+.body2 p{break-inside:avoid;margin-bottom:1em}
+mark{color:inherit;padding:0 .12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.h-g{background:var(--green);color:var(--white)}
+.h-w{background:var(--white);color:var(--ink)}
+.h-i{background:var(--ink);color:var(--lemon)}
+a.h-i{text-decoration:none}
+
+/* contato e formulário */
+.contact{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,80px);align-items:start}
+.contact h2{max-width:12ch}
+.contact .sub{margin:22px 0 clamp(28px,4vw,48px);max-width:34ch;font-size:var(--t-lead)}
+.rows a{display:block;font:800 var(--t-h3)/1.25 var(--f-display);letter-spacing:-.02em;text-decoration:none;word-break:break-word}
+.rows a:hover{text-decoration:underline;text-underline-offset:6px}
+.idea{display:grid;gap:20px}
+.idea label{display:grid;gap:8px;font-weight:700;font-size:var(--t-body)}
+.idea .opt{font-weight:500}
+.idea select,.idea textarea,.idea input{font:inherit;font-size:var(--t-body);color:var(--ink);background:var(--white);border:0;border-radius:0;padding:15px 16px;width:100%}
 .idea textarea{resize:vertical}
-.idea select:focus,.idea textarea:focus,.idea input:focus{outline:2px solid var(--accent);outline-offset:1px}
-.idea button{justify-self:start;border:0;cursor:pointer}
+.legend{font-weight:700;font-size:var(--t-body);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:600 var(--t-small) var(--f-body);color:var(--white);background:var(--green-d);border:0;border-radius:0;padding:11px 16px;cursor:pointer;transition:background .2s,color .2s,transform .15s var(--ease)}
+.chips button:hover{transform:translateY(-2px)}
+.chips button[aria-pressed="true"]{background:var(--lemon);color:var(--ink)}
+.idea .btn{justify-self:start;min-height:60px;padding:0 34px}
 .idea button[disabled]{opacity:.6;cursor:wait}
-.idea .msg{margin:0;font-weight:600;color:var(--accent);min-height:1.4em}
-.idea .msg.err{color:#B4412F}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-footer{padding:36px 0 48px;color:var(--muted);font-size:15px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;border-top:1px solid var(--line);margin-top:24px}
-footer a{text-decoration:none}
-footer a:hover{color:var(--ink)}
+.note2{font-size:var(--t-small)}
+.note2 a{font-weight:700}
+.msg{font-weight:700;min-height:1.5em}
+.msg.err{color:var(--lemon)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0} /* taste-skill-ignore */
+
+/* rodapé */
+.foot{background:var(--green);padding:10px;display:grid;gap:8px}
+.frow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:8px}
+.tl{padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;text-decoration:none}
+.tl.up{min-height:220px}
+.tl .t{font-size:var(--t-lead);line-height:1.25;font-weight:600}
+.tl .s{font-size:var(--t-small)}
+.tl ul{list-style:none;margin:0;padding:0;font-size:var(--t-body);line-height:1.7}
+.tl ul a{text-decoration:none;font-weight:600}.tl ul a:hover{text-decoration:underline}
+.f1{grid-column:1/5;background:var(--ink);color:var(--paper)}
+.f2{grid-column:5/8;background:var(--white);color:var(--ink)}
+.f3{grid-column:8/10;background:var(--paper);color:var(--ink)}
+.f4{grid-column:10/13;background:var(--white);color:var(--ink)}
+.f4 a{font-weight:700;word-break:break-word}
+.f5{grid-column:1/9;background:var(--ink);color:var(--paper);min-height:320px;align-items:center;justify-content:center;flex-direction:row;gap:clamp(12px,2vw,28px)}
+.f5 img{width:clamp(96px,14vw,220px);height:clamp(96px,14vw,220px)}
+.f5 span{font:800 var(--t-h2)/1 var(--f-display);letter-spacing:-.04em}
+.f6{grid-column:9/13;background:var(--lemon);color:var(--ink);min-height:320px}
+.f6 .t{font:800 var(--t-h3)/1.05 var(--f-display);letter-spacing:-.02em}
+.f6 svg{align-self:flex-end;width:56px;height:56px;transition:transform .25s var(--ease)}
+.f6:hover svg{transform:translate(6px,-6px)}
+
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:50;display:grid;place-items:center;width:62px;height:62px;border-radius:50%;background:#25D366;color:#fff;text-decoration:none;transition:transform .2s var(--ease),opacity .3s}
+.wa-float svg{width:36px;height:36px;fill:currentColor}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float:active{transform:scale(.96)}
+.wa-float.hide{opacity:0;pointer-events:none}
+
+/* movimento */
+.js .rise{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms)}
+.js .rise.in{opacity:1;transform:none}
+.js h1 .ln span{transform:translateY(108%);animation:mask .95s var(--ease) forwards}
+.js h1 .ln:nth-child(2) span{animation-delay:.11s}
+.js .hero .after{opacity:0;animation:fade .8s var(--ease) .75s forwards}
+.js .hero-photo img{transform:scale(1.12);animation:settle 1.8s var(--ease) forwards}
+@keyframes mask{to{transform:none}}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes settle{to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rise,.js h1 .ln span,.js .hero .after,.js .hero-photo img{opacity:1;transform:none;animation:none;transition:none}
+}
+
+/* automação e IA */
+.ai-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);column-gap:clamp(28px,5vw,80px);row-gap:28px;align-items:start}
+.ai-grid h2{grid-column:1/-1}
+.ai-stmt{grid-column:1/-1;font:700 var(--t-h3)/1.15 var(--f-display);letter-spacing:-.02em;max-width:50ch}
+.ai-grid .btn-ink{grid-column:1/-1;justify-self:start}
+.ai-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,48px);margin-top:clamp(16px,3vw,40px)}
+.ai-list p{font-size:var(--t-body);max-width:30ch}
+.ai-list strong{display:block;font:800 var(--t-lead) var(--f-display);letter-spacing:-.01em;margin-bottom:6px}
+.btn-ink{background:var(--ink);color:var(--paper)}
+@media (max-width:900px){
+  .ai-grid{grid-template-columns:1fr}
+  .ai-grid h2,.ai-stmt,.ai-grid .btn-ink,.ai-list{grid-column:1}
+  .ai-list{grid-template-columns:1fr}
+}
+
+/* celular */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;padding-right:0;min-height:0}
+  .hero-main{padding-right:var(--m);min-height:0;padding-bottom:36px}
+  .hero-text{padding-top:40px}
+  .wa-float{width:58px;height:58px;right:12px;bottom:12px}
+  .hero-photo{margin-left:calc(var(--m) * -1);min-height:0;aspect-ratio:4/3}
+  .bar nav{display:none}
+  .brand img{width:72px;height:72px}
+  h1{font-size:clamp(25px,7.2vw,60px)}
+  h2{font-size:clamp(32px,9vw,56px)}
+  .sec-grid{grid-template-columns:1fr;grid-template-rows:none}
+  .sec-grid>.sq,.sec-grid>:not(.sq){grid-column:1;grid-row:auto}
+  .sec-grid>h2{order:1}.sec-grid>.sq{order:2}.sec-grid>.tabs{order:3}.sec-grid>.panel{order:4}.sec-grid>.cells{order:5}
+  .cells{grid-template-columns:1fr}.cell{min-height:60px}
+  .how-grid{grid-template-columns:1fr;gap:34px;align-items:start}
+  .how-grid h2,.s1,.s2,.s3{grid-column:1;grid-row:auto;max-width:none}
+  .t1{height:34vw}.t2{height:46vw}.t3{height:62vw}
+  .body2{columns:1}
+  .contact{grid-template-columns:1fr}
+  .frow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .f1,.f2,.f3,.f4,.f5,.f6{grid-column:auto}
+  .f5,.f6{grid-column:1/-1;min-height:160px}
+  .tl.up{min-height:180px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <a class="brand" href="/">Urban Digital <span>Pro</span></a>
-    <a class="ig" href="https://www.instagram.com/urbandigitalproducts/" target="_blank" rel="noopener">@urbandigitalproducts</a>
-  </header>
 
-  <main>
-    <section class="hero">
-      <span class="eyebrow">🇧🇷 Feito para brasileiros nos EUA 🇺🇸</span>
-      <h1>Qual a maior dor da sua empresa? <mark>A gente resolve.</mark></h1>
-      <p class="lead">Para donos de negócio brasileiros na Flórida. Conte o problema em 1 minuto e receba uma solução com preço e prazo, sem enrolação.</p>
-      <div class="ctas">
-        <a class="btn btn-main" href="#ideias">Contar minha dor →</a>
-        <a class="btn btn-wa" href="https://wa.me/14073755223?text=Oi!%20Vim%20pelo%20site%20da%20Urban%20Digital%20Pro." target="_blank" rel="noopener">Falar no WhatsApp</a>
+<section class="ch hero on-green" id="topo">
+  <div class="hero-main">
+    <header class="bar">
+      <a class="brand" href="#topo" aria-label="Urban Digital Pro, início"><img src="brand/logo-empresa.svg" width="88" height="88" alt=""><span>Urban Digital Pro</span></a>
+      <nav aria-label="Principal"><a href="#setores">Setores</a><a href="#como">Como funciona</a><a class="keep" href="#ideias">Contar minha dor</a></nav>
+    </header>
+    <div class="hero-text">
+      <h1><span class="ln"><span>A gente resolve</span></span><span class="ln lm"><span>a dor da sua empresa.</span></span></h1>
+      <p class="lead after">Automatize o que toma o seu tempo e coloque inteligência artificial no seu negócio. Soluções sob medida para empresários brasileiros nos EUA, em qualquer setor, com preço e prazo combinados.</p>
+      <div class="acts after">
+        <a class="btn" href="#ideias">Contar minha dor</a>
+        <a class="lnk" href="https://wa.me/14073755223?text=Oi!%20Vim%20pelo%20site%20da%20Urban%20Digital%20Pro." target="_blank" rel="noopener">Falar no WhatsApp</a>
       </div>
-    </section>
+    </div>
+  </div>
+  <figure class="hero-photo"><img src="img/phone-porch.jpg" width="1024" height="765" alt="Empresária brasileira respondendo clientes no celular, sentada na varanda de uma casa na Flórida"></figure>
+</section>
 
-    <section id="ideias">
-      <form class="idea" id="idea-form">
-        <h2>Qual problema está travando a sua empresa?</h2>
-        <p class="sub">Conte a sua maior dor do dia a dia: o que toma o seu tempo, o que dá prejuízo, o que você faz na mão. A gente te chama no WhatsApp para entender e te passar a solução, com preço e prazo.</p>
-        <label>Seu tipo de negócio
-          <select name="negocio" required>
-            <option value="">Escolha…</option>
-            <option>Limpeza de casas</option>
-            <option>Limpeza de piscina</option>
-            <option>Construção / reforma</option>
-            <option>Pintura</option>
-            <option>Paisagismo / jardim</option>
-            <option>Transporte / transfer</option>
-            <option>Outro</option>
-          </select>
-        </label>
-        <label>Qual a sua maior dor hoje?
-          <textarea name="ideia" rows="4" maxlength="1000" required placeholder="Ex.: perco orçamento porque demoro pra responder o cliente"></textarea>
-        </label>
-        <label>Seu nome
-          <input name="nome" maxlength="60" autocomplete="name" required placeholder="Como podemos te chamar?">
-        </label>
-        <label>Seu WhatsApp
-          <input name="whatsapp" type="tel" maxlength="30" autocomplete="tel" required minlength="7" placeholder="(407) 000-0000">
-        </label>
-        <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn btn-main" type="submit">Quero resolver isso</button>
-        <p class="msg" role="status" aria-live="polite"></p>
-      </form>
-    </section>
+<section class="ch on-paper" id="setores">
+  <div class="sec-grid">
+    <figure class="sq"><img id="sec-img" src="img/obra.jpg" width="1200" height="900" alt="Empreiteiro brasileiro olhando um tablet dentro de uma casa em reforma na Flórida"></figure>
+      <h2 class="rise">Todo setor tem a sua dor.</h2>
+      <div class="tabs rise" id="tabs" role="group" aria-label="Escolha o seu setor" style="--d:80ms">
+        <button type="button" aria-pressed="true" data-k="obra">Construção e reforma</button>
+        <button type="button" aria-pressed="false" data-k="paisagismo">Paisagismo</button>
+        <button type="button" aria-pressed="false" data-k="limpeza">Limpeza</button>
+        <button type="button" aria-pressed="false" data-k="piscina">Piscina</button>
+        <button type="button" aria-pressed="false" data-k="transporte">Transporte</button>
+        <button type="button" aria-pressed="false" data-k="salao">Beleza e estética</button>
+        <button type="button" aria-pressed="false" data-k="padaria">Restaurantes e padarias</button>
+      </div>
+      <div class="panel rise" id="panel" aria-live="polite" style="--d:140ms">
+        <h3 id="sec-t">O orçamento demora e o cliente fecha com outro.</h3>
+        <p id="sec-d">Quem faz obra perde cliente na espera: medir, calcular, escrever, mandar. A gente monta um jeito de o orçamento sair no mesmo dia, em inglês, direto no WhatsApp.</p>
+        <p class="note">Exemplo de dor e de solução. A de verdade a gente desenha depois de entender o seu caso.</p>
+      </div>
+      <div class="cells rise" style="--d:200ms">
+        <a class="cell cell-ink" href="#ideias" id="sec-cta">É essa a minha dor →</a>
+        <a class="cell cell-tone" href="https://wa.me/14073755223?text=Oi!%20Vim%20pelo%20site%20da%20Urban%20Digital%20Pro." target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+  </div>
+</section>
 
-    <section id="produtos">
-      <h2>Soluções que já resolvemos</h2>
-      <p class="sub">Algumas dores aparecem toda hora. Para essas, já temos a solução pronta e testada. Começamos pelos serviços de limpeza.</p>
-      <div class="grid">
-        <article class="card">
-          <span class="tag tag-live">Disponível</span>
-          <h3>QuoteZap</h3>
-          <p>Orçamento de limpeza pelo zap, no idioma do seu cliente.</p>
-          <ul class="feat">
-            <li>Tabela com os <strong>seus</strong> preços: casa, turnover, deep clean</li>
-            <li>PDF com a sua logo</li>
-            <li>Mensagem pronta em inglês, espanhol ou português</li>
-            <li>Funciona no celular, sem instalar nada</li>
-          </ul>
-          <div class="price"><b>$19</b><span>/mês · 7 dias grátis</span></div>
-          <a class="btn btn-main" href="https://app.urbandigitalpro.net/">Abrir o QuoteZap →</a>
-        </article>
+<section class="ch on-lemon" id="ia">
+  <div class="ai-grid">
+    <h2 class="rise">Não fique de fora desta evolução.</h2>
+    <p class="ai-stmt rise" style="--d:80ms">A <mark class="h-g">inteligência artificial</mark> já responde clientes, monta orçamentos e organiza a agenda. Quem automatiza ganha tempo; quem espera fica para trás.</p>
+    <a class="btn btn-ink rise" href="#ideias" style="--d:140ms">Quero automatizar</a>
+    <div class="ai-list rise" style="--d:200ms">
+      <p><strong>Atenda na hora, 24 horas.</strong>Responda clientes em inglês e português mesmo quando você está ocupado ou dormindo.</p>
+      <p><strong>Orçamento e cobrança sem digitar.</strong>O que você faz na mão, no papel e no WhatsApp passa a sair sozinho.</p>
+      <p><strong>Agenda e lembretes no automático.</strong>Confirmação, aviso e acompanhamento do cliente sem você precisar lembrar.</p>
+    </div>
+  </div>
+</section>
 
-        <div class="stack">
-          <article class="card">
-            <span class="tag tag-soon">Em desenvolvimento</span>
-            <h3>QuoteZap Pool</h3>
-            <p>Para quem limpa piscina: orçamento e relatório da visita (foto, cloro, pH) que chega para o cliente em inglês.</p>
-            <a class="link" href="https://wa.me/14073755223?text=Quero%20saber%20quando%20o%20QuoteZap%20Pool%20ficar%20pronto." target="_blank" rel="noopener">Quero ser avisado →</a>
-          </article>
-          <article class="card">
-            <span class="tag tag-soon">Sob consulta</span>
-            <h3>Sofia</h3>
-            <p>Atendente virtual que responde seus clientes no WhatsApp, 24h, em inglês, espanhol e português, e marca na sua agenda.</p>
-            <a class="link" href="https://wa.me/14073755223?text=Quero%20saber%20mais%20sobre%20a%20Sofia." target="_blank" rel="noopener">Saber mais →</a>
-          </article>
+<section class="ch on-ink" id="como">
+  <div class="how-grid">
+    <h2 class="rise">Como funciona</h2>
+    <div class="stage s1 rise" style="--d:100ms">
+      <div class="tile t1"><img src="img/planning.jpg" width="1024" height="765" loading="lazy" alt="Empresária anotando contas à mão numa mesa de cozinha"></div>
+      <h3>Você conta</h3>
+      <p>Escolhe o que pesa no seu dia a dia e deixa o seu WhatsApp. Leva 1 minuto.</p>
+    </div>
+    <div class="stage s2 rise" style="--d:200ms">
+      <div class="tile t2"><img src="img/door-client.jpg" width="1024" height="765" loading="lazy" alt="Empresária conversando com uma cliente na porta de casa"></div>
+      <h3>A gente entende</h3>
+      <p>Em até 48h chamamos você no WhatsApp, em português, para entender como o seu negócio funciona.</p>
+    </div>
+    <div class="stage s3 rise" style="--d:300ms">
+      <div class="tile t3"><img src="img/happy-client.jpg" width="1024" height="765" loading="lazy" alt="Cliente sorrindo na sala de casa, satisfeita com o serviço"></div>
+      <h3>Você decide</h3>
+      <p>Chega uma proposta com solução, preço e prazo combinados antes de começar. Sem contrato e sem pressão.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ch about on-lemon" id="sobre">
+  <div class="about-in">
+    <h2 class="rise">De empresário para empresário.</h2>
+    <p class="stmt rise" style="--d:80ms"><strong>Urban Digital Pro</strong> nasceu dentro da <mark class="h-g">Urban Clean &amp; Repair</mark>, em <mark class="h-w">Davenport, Flórida</mark>, de dores que a gente mesmo sentiu.</p>
+    <div class="body2 rise" style="--d:140ms">
+      <p>Quem tem negócio por aqui conhece o cenário: cliente que só fala inglês, <mark class="h-g">orçamento perdido no WhatsApp</mark>, mensagem que ninguém responde de madrugada, agenda e cobrança na mão. A gente passou por tudo isso e foi construindo as próprias ferramentas para resolver.</p>
+      <p>Foi dali que saiu a ideia: transformar o que aprendemos em soluções para outros empresários brasileiros nos EUA, <mark class="h-w">de qualquer setor</mark>. Você conta a dor, a gente entende o seu negócio e propõe a solução com <mark class="h-g">preço e prazo</mark> combinados antes de começar. A gente fala <mark class="h-w">português</mark> e sabe o que é tocar um negócio longe de casa.</p>
+      <p><a class="h-i" href="#ideias">Tem uma dor travando a sua empresa? Conta pra gente →</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="ch on-green" id="ideias">
+  <div class="contact">
+    <div>
+      <h2 class="rise">Conte a sua dor em 1 minuto.</h2>
+      <p class="sub rise" style="--d:80ms">Sem contrato e sem pressão. A gente te chama no WhatsApp em até 48h para entender e te passar a solução, com preço e prazo.</p>
+      <div class="rows rise" style="--d:140ms">
+        <a href="https://wa.me/14073755223" target="_blank" rel="noopener">(407) 375-5223</a>
+        <a href="mailto:urbandigitalproducts@gmail.com">urbandigitalproducts@gmail.com</a>
+        <a href="https://www.instagram.com/urbandigitalproducts/" target="_blank" rel="noopener">@urbandigitalproducts</a>
+      </div>
+    </div>
+    <form class="idea rise" id="idea-form" style="--d:120ms">
+      <label>Seu tipo de negócio
+        <select name="negocio" required>
+          <option value="">Escolha…</option>
+          <option>Construção / reforma</option>
+          <option>Limpeza</option>
+          <option>Pintura</option>
+          <option>Paisagismo / jardim</option>
+          <option>Piscina</option>
+          <option>Transporte / transfer</option>
+          <option>Restaurante / alimentação</option>
+          <option>Beleza / estética</option>
+          <option>Comércio / loja</option>
+          <option>Saúde / bem-estar</option>
+          <option>Serviços profissionais</option>
+          <option>Outro</option>
+        </select>
+      </label>
+      <div>
+        <p class="legend" id="chips-l">Toque no que mais pesa hoje (pode marcar vários)</p>
+        <div class="chips" id="chips" role="group" aria-labelledby="chips-l">
+          <button type="button" aria-pressed="false">Demoro para responder clientes</button>
+          <button type="button" aria-pressed="false">Orçamento demorado</button>
+          <button type="button" aria-pressed="false">Cobrança e pagamentos</button>
+          <button type="button" aria-pressed="false">Agenda e equipe</button>
+          <button type="button" aria-pressed="false">Atender em inglês</button>
+          <button type="button" aria-pressed="false">Papelada e documentos</button>
+          <button type="button" aria-pressed="false">Aparecer na internet</button>
+          <button type="button" aria-pressed="false">Controle de custos e estoque</button>
         </div>
       </div>
-    </section>
+      <label>Quer explicar melhor? <span class="opt">(opcional)</span>
+        <textarea name="ideia" rows="3" maxlength="1000" placeholder="Ex.: perco orçamento porque demoro pra responder o cliente"></textarea>
+      </label>
+      <label>Seu nome
+        <input name="nome" maxlength="60" autocomplete="name" required placeholder="Como podemos te chamar?">
+      </label>
+      <label>Seu WhatsApp
+        <input name="whatsapp" type="tel" maxlength="30" autocomplete="tel" required minlength="7" placeholder="(407) 000-0000">
+      </label>
+      <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" type="submit">Quero resolver isso</button>
+      <p class="note2">Usamos o seu WhatsApp só para falar sobre isso. Não vendemos nem repassamos seus dados. <a href="privacidade.html">Privacidade</a></p>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
 
-    <section>
-      <div class="about">
-        <div class="mark" aria-hidden="true">U</div>
-        <p><strong>Feito por empresário brasileiro, para empresário brasileiro.</strong> A Urban Digital Pro nasceu dentro da Urban Clean &amp; Repair, empresa de limpeza em Davenport, Flórida. As ferramentas saem dos problemas que a gente enfrenta no dia a dia: cliente que só fala inglês, orçamento perdido no WhatsApp, mensagem que ninguém responde de madrugada.</p>
-      </div>
-    </section>
-  </main>
+<footer class="foot">
+  <div class="frow">
+    <div class="tl up f1"><p class="t">Soluções digitais para empresários brasileiros nos EUA.</p><p class="s">© 2026 Urban Digital Pro · Davenport, FL</p></div>
+    <div class="tl up f2"><ul><li><a href="#setores">Setores</a></li><li><a href="#como">Como funciona</a></li><li><a href="#ideias">Contar minha dor</a></li><li><a href="privacidade.html">Privacidade</a></li></ul></div>
+    <div class="tl up f3"><p class="t">Davenport, FL</p><p class="s" id="clock">Flórida, EUA</p></div>
+    <div class="tl up f4"><p class="s">Escreva para a gente</p><a href="mailto:urbandigitalproducts@gmail.com">urbandigitalproducts@gmail.com</a></div>
+  </div>
+  <div class="frow">
+    <div class="tl f5"><img src="brand/logo-empresa.svg" width="220" height="220" alt=""><span>Urban Digital Pro</span></div>
+    <a class="tl f6" href="#ideias"><span class="t">Conte a sua dor</span><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true"><path d="M12 44 44 12M18 12h26v26"/></svg></a>
+  </div>
+</footer>
 
-  <footer>
-    <span>© 2026 Urban Digital Pro · Davenport, FL</span>
-    <span>
-      <a href="https://www.instagram.com/urbandigitalproducts/" target="_blank" rel="noopener">Instagram</a> ·
-      <a href="https://wa.me/14073755223" target="_blank" rel="noopener">WhatsApp (407) 375-5223</a>
-    </span>
-  </footer>
-</div>
+<a class="wa-float" href="https://wa.me/14073755223?text=Oi!%20Vim%20pelo%20site%20da%20Urban%20Digital%20Pro." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
-// Formulário de dores/leads -> webhook n8n (grava no Postgres e avisa no Telegram)
 (() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // rolagem suave (inércia); sem isso, vale a rolagem normal do navegador
+  let lenis = null;
+  if (window.Lenis && !reduce) {
+    lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href'); const el = id.length > 1 && document.querySelector(id);
+      if (el) { e.preventDefault(); lenis.scrollTo(el, { duration: 1.3 }); }
+    }));
+  }
+
+  // entradas ao rolar
+  const rises = document.querySelectorAll('.rise');
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
+    rises.forEach(el => io.observe(el));
+  } else { rises.forEach(el => el.classList.add('in')); }
+
+  // setores (a peça interativa)
+  const S = {
+    obra:       { img:'img/obra.jpg', alt:'Empreiteiro brasileiro olhando um tablet dentro de uma casa em reforma na Flórida', sel:'Construção / reforma', chip:'Orçamento demorado',
+                  t:'O orçamento demora e o cliente fecha com outro.', d:'Quem faz obra perde cliente na espera: medir, calcular, escrever, mandar. A gente monta um jeito de o orçamento sair no mesmo dia, em inglês, direto no WhatsApp.' },
+    paisagismo: { img:'img/paisagismo.jpg', alt:'Paisagista brasileiro ao lado do caminhão de trabalho, olhando o celular', sel:'Paisagismo / jardim', chip:'Agenda e equipe',
+                  t:'A agenda muda toda hora e o cliente esquece.', d:'Chuva, rota, equipe… A gente organiza as visitas e manda os lembretes sozinho, para você parar de remarcar na mão.' },
+    limpeza:    { img:'img/phone-car.jpg', alt:'Empresária de limpeza respondendo um cliente no celular dentro do carro', sel:'Limpeza', chip:'Demoro para responder clientes',
+                  t:'Cliente novo chama no WhatsApp quando você está ocupada.', d:'Quem responde primeiro leva o serviço. A gente cria um atendimento que responde na hora, em inglês, e já marca na sua agenda.' },
+    piscina:    { img:'img/pool.jpg', alt:'Profissional limpando uma piscina com tela numa casa da Flórida', sel:'Piscina', chip:'Cobrança e pagamentos',
+                  t:'Relatório da visita e cobrança feitos no improviso.', d:'Foto, cloro e pH num relatório que chega ao cliente em inglês, com a cobrança no mesmo lugar.' },
+    transporte: { img:'img/traffic.jpg', alt:'Motorista no trânsito de uma rodovia da Flórida', sel:'Transporte / transfer', chip:'Demoro para responder clientes',
+                  t:'Corrida perdida porque outro respondeu primeiro.', d:'Quem pede transfer fecha com o primeiro que responde. A gente monta atendimento e confirmação automáticos, 24 horas.' },
+    salao:      { img:'img/salao.jpg', alt:'Dona de salão de beleza olhando o celular entre uma cliente e outra', sel:'Beleza / estética', chip:'Agenda e equipe',
+                  t:'Agenda com buracos e cliente que não aparece.', d:'Lembrete e confirmação pelo WhatsApp, e uma lista de espera para encaixar quem desistiu.' },
+    padaria:    { img:'img/padaria.jpg', alt:'Dona de padaria brasileira com um tablet atrás do balcão', sel:'Restaurante / alimentação', chip:'Controle de custos e estoque',
+                  t:'Encomenda no papel, no zap e na cabeça, tudo misturado.', d:'Um lugar só para pedidos e encomendas, com confirmação, horário de retirada e controle do que sai.' }
+  };
+  const tabs = document.getElementById('tabs'), img = document.getElementById('sec-img'),
+        panel = document.getElementById('panel'), t = document.getElementById('sec-t'), d = document.getElementById('sec-d');
+  let cur = 'obra';
+  const show = (k) => {
+    const s = S[k]; if (!s || k === cur) return; cur = k;
+    tabs.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === k)));
+    img.classList.add('out'); panel.classList.add('out');
+    setTimeout(() => { img.src = s.img; img.alt = s.alt; t.textContent = s.t; d.textContent = s.d; img.classList.remove('out'); panel.classList.remove('out'); }, reduce ? 0 : 280);
+  };
+  tabs.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) show(b.dataset.k); });
+  document.getElementById('sec-cta').addEventListener('click', () => {
+    const s = S[cur], f = document.getElementById('idea-form');
+    f.elements.negocio.value = s.sel;
+    f.querySelectorAll('#chips button').forEach(b => b.setAttribute('aria-pressed', String(b.textContent.trim() === s.chip)));
+  });
+
+  // formulário -> n8n
   const form = document.getElementById('idea-form');
   const msg = form.querySelector('.msg');
-  const btn = form.querySelector('button');
+  const btn = form.querySelector('button[type="submit"]');
+  form.querySelector('#chips').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+  });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const picked = [...form.querySelectorAll('#chips [aria-pressed="true"]')].map(b => b.textContent.trim());
+    const extra = form.elements.ideia.value.trim();
+    if (!picked.length && !extra) {
+      msg.className = 'msg err';
+      msg.textContent = 'Toque em pelo menos uma dor ou escreva uma linha sobre o problema.';
+      return;
+    }
     const data = new URLSearchParams(new FormData(form));
+    data.set('ideia', [picked.join('; '), extra].filter(Boolean).join(' — '));
     data.set('origem', 'site');
     btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Enviando…';
     try {
       const r = await fetch('https://n8n.urbancleanfl.com/webhook/ideias-ferramentas', { method: 'POST', body: data });
       if (!r.ok) throw new Error(r.status);
       form.reset();
+      form.querySelectorAll('#chips button').forEach(b => b.setAttribute('aria-pressed', 'false'));
       msg.textContent = 'Recebido! Vamos te chamar no WhatsApp em até 48h pra entender melhor.';
     } catch (err) {
       msg.className = 'msg err';
@@ -219,6 +477,17 @@ footer a:hover{color:var(--ink)}
       btn.disabled = false;
     }
   });
+
+  // esconde o botão fixo quando o rodapé aparece
+  const wa = document.querySelector('.wa-float'), foot = document.querySelector('.foot');
+  if (wa && foot && 'IntersectionObserver' in window) {
+    new IntersectionObserver((es) => es.forEach(e => wa.classList.toggle('hide', e.isIntersecting)), { threshold: 0.05 }).observe(foot);
+  }
+
+  // hora local
+  const clock = document.getElementById('clock');
+  const tick = () => { try { clock.textContent = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }).format(new Date()) + ' na Flórida'; } catch (e) {} };
+  tick(); setInterval(tick, 30000);
 })();
 </script>
 </body>
